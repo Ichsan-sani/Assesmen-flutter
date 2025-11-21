@@ -1,444 +1,246 @@
 import 'package:flutter/material.dart';
 
-class Dashboard extends StatelessWidget {
-  const Dashboard({super.key});
+class BelajarListview extends StatefulWidget {
+  const BelajarListview({super.key});
+
+  @override
+  State<BelajarListview> createState() => _BelajarListviewState();
+}
+
+class _BelajarListviewState extends State<BelajarListview> {
+  List<Map<String, dynamic>> products = [
+    {
+      "name": "Vinyl The Sigit - Hertz Dyslexia",
+      "image": "assets/images/1.png",
+      "stock": 10,
+      "price": 500000,
+      "quantity": 1,
+    },
+    {
+      "name": "DEFTONES - Private Music",
+      "image": "assets/images/2.png",
+      "stock": 10,
+      "price": 500000,
+      "quantity": 1,
+    },
+    {
+      "name": "TWENTYONEPILOTS - Blurryface",
+      "image": "assets/images/3.png",
+      "stock": 10,
+      "price": 500000,
+      "quantity": 1,
+    },
+    {
+      "name": "TRUNOVER - Peripheral Vision",
+      "image": "assets/images/4.png",
+      "stock": 10,
+      "price": 500000,
+      "quantity": 1,
+    },
+    {
+      "name": "FLEETWOOD MAC - Rumors",
+      "image": "assets/images/5.png",
+      "stock": 10,
+      "price": 500000,
+      "quantity": 1,
+    },
+  ];
+
+  int totalItem = 0;
+  int totalPrice = 0;
 
   @override
   Widget build(BuildContext context) {
-    // Daftar ikon alat bangunan sesuai Flutter bawaan
-    final List<IconData> buildingIcons = [
-      Icons.plumbing,               // Plumber
-      Icons.electrical_services,    // Electrician
-      Icons.carpenter,              // Carpenter
-      Icons.grass,                  // Planter
-      Icons.handyman,               // Mason
-      Icons.electrical_services,    // Welder
-      Icons.roofing,                // Roofer
-      Icons.more_horiz,             // More
-    ];
-
-    // Warna background ikon
-    final List<Color> bgColors = [
-      Colors.lightBlue.shade300,
-      Colors.orange.shade300,
-      Colors.green.shade300,
-      Colors.red.shade300,
-      Colors.purple.shade300,
-      Colors.pink.shade300,
-      Colors.blueGrey.shade300,
-      Colors.grey.shade400,
-    ];
-
-    // Label untuk masing-masing ikon
-    final List<String> labels = [
-      "Plumber",
-      "Electrician",
-      "Carpenter",
-      "Planter",
-      "Mason",
-      "Welder",
-      "Roofer",
-      "More",
-    ];
-
     return Scaffold(
-      backgroundColor: Colors.grey[200],
-      body: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+      body: Padding(
+        padding: EdgeInsets.all(20),
+        child: Stack(
           children: [
-            // Header
-            Container(
-              padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
-              child: Row(
-                children: [
-                  const CircleAvatar(
-                    radius: 17,
-                    backgroundImage: AssetImage("assets/images/user.png"),
-                  ),
-                  const SizedBox(width: 12),
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisSize: MainAxisSize.min,
-                      children: const [
-                        Text(
-                          "Hello",
-                          style: TextStyle(fontSize: 12, color: Colors.grey),
-                        ),
-                        Text(
-                          "Rahmat Hidayat",
-                          style: TextStyle(
-                              fontSize: 14,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.black),
-                        ),
-                      ],
-                    ),
-                  ),
-                  Container(
-                    padding: const EdgeInsets.all(8),
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(10),
-                      boxShadow: const [
-                        BoxShadow(
-                          color: Colors.black12,
-                          blurRadius: 4,
-                          offset: Offset(0, 2),
-                        ),
-                      ],
-                    ),
-                    child: const Icon(
-                      Icons.notifications_outlined,
-                      size: 22,
-                      color: Colors.black,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-
-            const SizedBox(height: 5),
-
-            // Search bar + filter
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 15),
-              child: Row(
-                children: [
-                  Expanded(
-                    child: Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 15),
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(10),
-                        boxShadow: const [
-                          BoxShadow(
-                              color: Colors.black12,
-                              blurRadius: 4,
-                              offset: Offset(0, 2)),
-                        ],
-                      ),
-                      child: Row(
-                        children: [
-                          Expanded(
-                            child: TextField(
-                              decoration: const InputDecoration(
-                                hintText: "Search for any service...",
-                                hintStyle: TextStyle(color: Colors.grey),
-                                border: InputBorder.none,
-                              ),
-                            ),
-                          ),
-                          const Icon(Icons.search, color: Colors.black),
-                        ],
-                      ),
-                    ),
-                  ),
-                  const SizedBox(width: 10),
-                  Container(
-                    padding: const EdgeInsets.all(10),
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(10),
-                      boxShadow: const [
-                        BoxShadow(
-                            color: Colors.black12,
-                            blurRadius: 4,
-                            offset: Offset(0, 2)),
-                      ],
-                    ),
-                    child: const Icon(Icons.filter_alt, color: Colors.black),
-                  ),
-                ],
-              ),
-            ),
-
-            const SizedBox(height: 20),
-
-            // Promo banner
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 15),
-              child: Container(
-                height: 220,
-                width: double.infinity,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(15),
-                  gradient: const LinearGradient(
-                    begin: Alignment.topLeft,
-                    end: Alignment.bottomRight,
-                    colors: [Color(0xFF90CAF9), Color(0xFF1565C0)],
-                  ),
-                  boxShadow: const [
-                    BoxShadow(
-                        color: Colors.black26, blurRadius: 8, offset: Offset(0, 4))
-                  ],
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  "Kangker app",
+                  style: TextStyle(fontSize: 30, fontWeight: FontWeight.w300),
                 ),
-                child: Stack(
+                Text(
+                  "semoga harimu menyenangkan",
+                  style: TextStyle(fontSize: 22, fontWeight: FontWeight.w500),
+                ),
+                SizedBox(height: 20),
+                TextFormField(
+                  cursorColor: Colors.black,
+                  style: TextStyle(color: Colors.black),
+                  decoration: InputDecoration(
+                    hintText: "cari sesuatu...",
+                    hintStyle: TextStyle(
+                      fontWeight: FontWeight.w500,
+                      color: Colors.grey[400],
+                    ),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10),
+                      borderSide: BorderSide(width: 1.5, color: Colors.black),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10),
+                      borderSide: BorderSide(width: 1.5, color: Colors.black),
+                    ),
+                  ),
+                ),
+                SizedBox(height: 20),
+                // ListView.builder(
+                //   itemCount: 20,
+                //   itemBuilder: (context, index) {
+                //     return Container(
+                //       margin: EdgeInsets.all(20),
+                //       height: 100,
+                //       width: double.infinity,
+                //       color: Colors.cyan[200],
+                //     )
+                //   },
+                // )
+                Expanded(
+                  child: Padding(
+                    padding: const EdgeInsets.only(bottom: 80),
+                    child: ListView.separated(
+                      // physics: NeverScrollableScrollPhysics(),
+                      //sebagai pengatur jarak
+                      separatorBuilder: (context, index) {
+                        // return Divider(thickness: 3,);
+                        return SizedBox(height: 10);
+                      },
+                      //MENGATUR JUMLAH ITEM
+                      itemCount: products.length,
+                      //MENGATUR BENTUK ITEM
+                      itemBuilder: (context, index) {
+                        return Container(
+                          height: 100,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10),
+                            color: Colors.cyan[200],
+                          ),
+                          child: Row(
+                            children: [
+                              Container(
+                                height: 120,
+                                width: 120,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.only(
+                                    topLeft: Radius.circular(10),
+                                    bottomLeft: Radius.circular(10),
+                                  ),
+                                  color: Colors.cyan,
+                                  image: DecorationImage(
+                                    fit: BoxFit.cover,
+                                    image: AssetImage(
+                                      '${products[index]["image"]}',
+                                    ),
+                                  ),
+                                ),
+                              ),
+
+                              SizedBox(width: 10),
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Text(
+                                    "${products[index]["name"]}",
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.w500,
+                                      fontSize: 16,
+                                    ),
+                                  ),
+                                  Text(
+                                    "stock  : ${products[index]["stock"]}",
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.w500,
+                                      fontSize: 16,
+                                      color: Colors.grey[700],
+                                    ),
+                                  ),
+                                  Text(
+                                    "Rp. ${products[index]["price"]}",
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.w500,
+                                      fontSize: 16,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              Spacer(),
+                              Row(
+                                children: [
+                                  IconButton(
+                                    onPressed: () {},
+                                    icon: Icon(
+                                      Icons.remove_circle_outline,
+                                      color: Colors.red,
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    width: 20,
+                                    child: Center(
+                                      child: Text(
+                                        "4",
+                                        style: TextStyle(
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.w600,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                  IconButton(
+                                    onPressed: () {},
+                                    icon: Icon(
+                                      Icons.add_circle_outline,
+                                      color: Colors.green,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
+                        );
+                      },
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            Align(
+              alignment: Alignment.bottomCenter,
+              child: ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.green,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  padding: EdgeInsets.symmetric(horizontal: 20, vertical: 30),
+                ),
+                onPressed: () {},
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Positioned(
-                      left: 25,
-                      top: 35,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          const Text(
-                            "Save 25% Today!",
-                            style: TextStyle(
-                                color: Colors.orange,
-                                fontSize: 13,
-                                fontWeight: FontWeight.w500),
-                          ),
-                          const SizedBox(height: 5),
-                          const Text(
-                            "Exclusive discount \n on home service",
-                            style: TextStyle(
-                                color: Colors.black,
-                                fontSize: 18,
-                                fontWeight: FontWeight.w700),
-                          ),
-                          const SizedBox(height: 15),
-                          Container(
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(12),
-                              gradient: const LinearGradient(
-                                colors: [Colors.orange, Colors.yellow],
-                                begin: Alignment.centerLeft,
-                                end: Alignment.centerRight,
-                                stops: [0.8, 1.0],
-                              ),
-                            ),
-                            child: ElevatedButton.icon(
-                              onPressed: () {},
-                              icon: const Icon(Icons.shopping_cart,
-                                  color: Colors.white),
-                              label: const Text(
-                                "Book Now",
-                                style: TextStyle(
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.bold),
-                              ),
-                              style: ElevatedButton.styleFrom(
-                                backgroundColor: Colors.transparent,
-                                shadowColor: Colors.transparent,
-                                minimumSize: const Size(150, 40),
-                                shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(12)),
-                              ),
-                            ),
-                          ),
-                        ],
+                    Text(
+                      "total (8 item) = Rp. 2.000.000",
+                      style: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.w600,
+                        color: Colors.white,
                       ),
                     ),
-                    Align(
-                      alignment: const Alignment(0.8, 0),
-                      child: ClipRRect(
-                        borderRadius: const BorderRadius.only(
-                            bottomRight: Radius.circular(15),
-                            topLeft: Radius.circular(15)),
-                        child: Image.asset(
-                          "assets/images/bg_service.png",
-                          height: 180,
-                          fit: BoxFit.cover,
-                        ),
-                      ),
+                    Icon(
+                      Icons.shopping_cart_outlined,
+                      color: Colors.white,
+                      size: 30,
                     ),
                   ],
                 ),
               ),
             ),
-
-            const SizedBox(height: 20),
-
-            // Title Most Booked Service
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 15),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: const [
-                  Text(
-                    "Most Booked Service",
-                    style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.black),
-                  ),
-                  Text(
-                    "View all",
-                    style: TextStyle(
-                        fontSize: 14,
-                        fontWeight: FontWeight.normal,
-                        color: Colors.grey),
-                  ),
-                ],
-              ),
-            ),
-
-            const SizedBox(height: 15),
-
-            // Grid Most Booked Service
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 15),
-              child: GridView.count(
-                crossAxisCount: 4,
-                crossAxisSpacing: 10,
-                mainAxisSpacing: 10,
-                shrinkWrap: true,
-                physics: const NeverScrollableScrollPhysics(),
-                children: List.generate(buildingIcons.length, (index) {
-                  return _InteractiveIconWithLabel(
-                    iconData: buildingIcons[index],
-                    bgColor: bgColors[index],
-                    label: labels[index],
-                    onTap: () {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(
-                          content: Text("You tapped ${labels[index]}"),
-                          duration: const Duration(milliseconds: 500),
-                        ),
-                      );
-                    },
-                  );
-                }),
-              ),
-            ),
-
-            const SizedBox(height: 30),
-
-            // Title Popular Near You
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 15),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: const [
-                  Text(
-                    "Popular Near You",
-                    style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.black),
-                  ),
-                  Text(
-                    "View all",
-                    style: TextStyle(
-                        fontSize: 14,
-                        fontWeight: FontWeight.normal,
-                        color: Colors.grey),
-                  ),
-                ],
-              ),
-            ),
-
-            const SizedBox(height: 15),
-
-            // Grid Popular Near You (Placeholder)
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 15),
-              child: GridView.count(
-                crossAxisCount: 2, // 2 kolom
-                crossAxisSpacing: 10,
-                mainAxisSpacing: 10,
-                shrinkWrap: true,
-                physics: const NeverScrollableScrollPhysics(),
-                children: List.generate(4, (index) {
-                  return Container(
-                    height: 120,
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(12),
-                      boxShadow: const [
-                        BoxShadow(
-                          color: Colors.black12,
-                          blurRadius: 4,
-                          offset: Offset(0, 2),
-                        ),
-                      ],
-                    ),
-                    child: Center(
-                      child: Text(
-                        "Place ${index + 1}",
-                        style: const TextStyle(
-                            fontSize: 14, fontWeight: FontWeight.bold),
-                      ),
-                    ),
-                  );
-                }),
-              ),
-            ),
-
-            const SizedBox(height: 30),
           ],
         ),
-      ),
-    );
-  }
-}
-
-// Widget untuk ikon interaktif dengan efek scale + label
-class _InteractiveIconWithLabel extends StatefulWidget {
-  final IconData iconData;
-  final Color bgColor;
-  final String label;
-  final VoidCallback onTap;
-
-  const _InteractiveIconWithLabel({
-    required this.iconData,
-    required this.bgColor,
-    required this.label,
-    required this.onTap,
-    Key? key,
-  }) : super(key: key);
-
-  @override
-  State<_InteractiveIconWithLabel> createState() =>
-      _InteractiveIconWithLabelState();
-}
-
-class _InteractiveIconWithLabelState extends State<_InteractiveIconWithLabel> {
-  bool _isPressed = false;
-
-  @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-      onTapDown: (_) => setState(() => _isPressed = true),
-      onTapUp: (_) {
-        setState(() => _isPressed = false);
-        widget.onTap();
-      },
-      onTapCancel: () => setState(() => _isPressed = false),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          AnimatedScale(
-            scale: _isPressed ? 1.1 : 1.0,
-            duration: const Duration(milliseconds: 100),
-            child: Container(
-              width: 50,
-              height: 50,
-              decoration: BoxDecoration(
-                color: widget.bgColor,
-                borderRadius: BorderRadius.circular(8),
-                boxShadow: const [
-                  BoxShadow(
-                      color: Colors.black12, blurRadius: 4, offset: Offset(0, 2)),
-                ],
-              ),
-              child: Center(
-                child: Icon(
-                  widget.iconData,
-                  size: 28,
-                  color: Colors.white,
-                ),
-              ),
-            ),
-          ),
-          const SizedBox(height: 5),
-          Text(
-            widget.label,
-            style: const TextStyle(fontSize: 12),
-            textAlign: TextAlign.center,
-          ),
-        ],
       ),
     );
   }
